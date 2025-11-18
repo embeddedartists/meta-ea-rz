@@ -119,6 +119,11 @@ if $modify_config; then
     # Add EA layers
     echo "" >> $BUILD_DIR/conf/bblayers.conf
     echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-ea-rz-dev \"" >> $BUILD_DIR/conf/bblayers.conf
+    echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-ea-dx \"" >> $BUILD_DIR/conf/bblayers.conf
+
+    # Add proprietary Renesas layers, downloadable from https://www.renesas.com/en/software-tool/rzg3e-board-support-package
+    echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-rz-features/meta-rz-codecs \"" >> $BUILD_DIR/conf/bblayers.conf
+    echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-rz-features/meta-rz-graphics \"" >> $BUILD_DIR/conf/bblayers.conf
 
     echo 'generated' >> conf/$CONF_MODIFIED
 fi
