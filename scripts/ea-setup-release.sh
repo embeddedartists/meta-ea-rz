@@ -113,6 +113,9 @@ if $modify_config; then
         -e "s,DISTRO ?=.*,DISTRO ?= '$DISTRO',g" \
         -i conf/local.conf
 
+    echo "" >> conf/local.conf
+    echo "LICENSE_FLAGS_ACCEPTED:append = \" commercial_ffmpeg commercial_x264 \"" >> conf/local.conf
+
     # xxx
     sed -i 's|${TOPDIR}/\.\./|${TOPDIR}/../sources/|g' conf/bblayers.conf
 
@@ -140,6 +143,7 @@ For more information about OpenEmbedded see their website:
 You can now run 'bitbake <target>'
 
 Common targets are:
+    ea-image-base
     core-image-minimal
     core-image-weston
     meta-toolchain
