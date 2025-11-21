@@ -24,6 +24,7 @@ clean_env()
 {
     unset BUILD_DIR TEMPLATECONF
     unset show_help error opt
+    unset MACHINE DISTRO
 }
 
 usage()
@@ -83,7 +84,7 @@ if [ -z "$DISTRO" ]; then
 fi
 
 if [ -z "$MACHINE" ]; then
-    MACHINE='smarc-rzg3e'
+    MACHINE='rzg3e-ea-som'
 fi
 
 # templates for local.conf and bblayers.conf
@@ -121,7 +122,7 @@ if $modify_config; then
 
     # Add EA layers
     echo "" >> $BUILD_DIR/conf/bblayers.conf
-    echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-ea-rz-dev \"" >> $BUILD_DIR/conf/bblayers.conf
+    echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-ea-rz \"" >> $BUILD_DIR/conf/bblayers.conf
     echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-ea-dx \"" >> $BUILD_DIR/conf/bblayers.conf
 
     # Add proprietary Renesas layers, downloadable from https://www.renesas.com/en/software-tool/rzg3e-board-support-package
