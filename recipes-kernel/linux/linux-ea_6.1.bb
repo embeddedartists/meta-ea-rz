@@ -20,6 +20,6 @@ KCONFIG_MODE ?= "alldefconfig"
 KERNEL_URL ?= "git://github.com/embeddedartists/linux-rz.git"
 
 KERNEL_BRANCH ?= "ea-6.1"
-KERNEL_REV ?= "58bb9d122daf8fc8f5db3c35b5f11e1d1f22d1e5"
+KERNEL_REV ?= "7f3182929acf37be05b69179d4ca174b7e1e7cd1"
 
 #SRC_URI:append = "${@bb.utils.contains('DISTRO_FEATURES','docker', ' file://docker.cfg', '', d)}"

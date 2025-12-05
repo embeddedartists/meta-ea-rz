@@ -17,13 +17,19 @@ require include/rz-modules-common.inc
 IMAGE_INSTALL:append = "\
   packagegroup-ea-dx-extended \
   ea-resizefs \
+  ea-files \
   auditd \
   libgpiod \
   libgpiod-tools \
   gstreamer1.0-plugins-bad \
   gstreamer1.0-plugins-good \
   python3-pip \
-  python3-virtualenv \
+  python3-venv \
+  python3-ensurepip \
+  python3-tomllib \
   htop \
   iperf3 \
+  evtest \
+  git \
+  trust-m \
 "
