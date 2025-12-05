@@ -1,0 +1,2 @@
+Just a placeholder to have something to copy to the rootfs. Will be replaced by
+real files in future releases.
