@@ -1,0 +1,28 @@
+From 0dca19e4ed197538ce7868ad8d7cbe3566fd829b Mon Sep 17 00:00:00 2001
+From: Anders Lindvall <anders.lindvall@embeddedartists.com>
+Date: Fri, 5 Dec 2025 14:12:11 +0000
+Subject: [PATCH] Changed GPIO pins and I2C bus to work with rzg3e-ea-som + SOM
+ Carrier Board
+
+---
+ pal/linux/target/rpi3/pal_ifx_i2c_config.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pal/linux/target/rpi3/pal_ifx_i2c_config.c b/pal/linux/target/rpi3/pal_ifx_i2c_config.c
+index fc5220a..0620d80 100644
+--- a/pal/linux/target/rpi3/pal_ifx_i2c_config.c
++++ b/pal/linux/target/rpi3/pal_ifx_i2c_config.c
+@@ -41,10 +41,10 @@
+ 
+ #include "pal_linux.h"
+ 
+-pal_linux_t linux_events = {"/dev/i2c-1", 0,NULL};
++pal_linux_t linux_events = {"/dev/i2c-3", 0,NULL};
+ 
+-#define GPIO_PIN_VDD 27
+-#define GPIO_PIN_RESET 17
++#define GPIO_PIN_VDD  (232+16)  /* don't have this one, use I2C_GPIO1_IO2_0-RGB_LED_BLUE */
++#define GPIO_PIN_RESET (256+20) /* I2C_GPIO0_IO2_4-SLS32AIA_RST# */
+ 
+ /**
+  * \brief PAL I2C configuration for OPTIGA. 
