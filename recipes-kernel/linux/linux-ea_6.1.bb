@@ -20,6 +20,10 @@ KCONFIG_MODE ?= "alldefconfig"
 KERNEL_URL ?= "git://github.com/embeddedartists/linux-rz.git"
 
 KERNEL_BRANCH ?= "ea-6.1"
-KERNEL_REV ?= "7f3182929acf37be05b69179d4ca174b7e1e7cd1"
+KERNEL_REV ?= "5749d502fc942729043bad14d87e02b8157614f6"
 
 #SRC_URI:append = "${@bb.utils.contains('DISTRO_FEATURES','docker', ' file://docker.cfg', '', d)}"
+
+# To enable support for the Telit Cinterion FN990A40-HP 5G sub6 M.2 modem, uncomment these two lines:
+#FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+#SRC_URI += "file://Telit_Cinterion_FN990A40-HP_5G_sub6_M2-fragment.cfg"
