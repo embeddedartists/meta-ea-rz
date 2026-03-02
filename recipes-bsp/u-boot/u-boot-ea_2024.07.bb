@@ -3,7 +3,7 @@ require recipes-bsp/u-boot/u-boot-renesas.inc
 COMPATIBLE_MACHINE = "(rzg3e-family)"
 
 UBOOT_URI = "git://github.com/embeddedartists/uboot-rz.git;protocol=https;nobranch=1"
-UBOOT_REV ?= "64fd409f87059029df0cb8d574aab10a699915b7"
+UBOOT_REV ?= "3c591cb01520cefdeb78a2e3da18c8f72f145408"
 
 PV="2024.07+git${SRCPV}"
 
