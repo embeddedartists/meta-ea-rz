@@ -32,4 +32,5 @@ IMAGE_INSTALL:append = "\
   evtest \
   git \
   trust-m \
+  onnxruntime-python \
 "

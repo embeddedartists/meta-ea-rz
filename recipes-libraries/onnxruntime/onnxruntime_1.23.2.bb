@@ -14,7 +14,7 @@ SRC_URI = " \
 
 S = "${WORKDIR}/git"
 
-inherit cmake python3native
+inherit cmake python3native python3-dir
 
 OECMAKE_SOURCEPATH = "${S}/cmake"
 OECMAKE_GENERATOR = "Unix Makefiles"
@@ -45,7 +45,7 @@ PYTHON_RDEPENDS = "\
     ${PYTHON_PN}-sympy \
 "
 
-PACKAGECONFIG ?= "crosscompiling sharedlib ${PACKAGECONFIG_NPU}"
+PACKAGECONFIG ?= "crosscompiling sharedlib python ${PACKAGECONFIG_NPU}"
 PACKAGECONFIG_NPU                    = ""
 
 PACKAGECONFIG[nsync] = "-Donnxruntime_USE_NSYNC=ON, -Donnxruntime_USE_NSYNC=OFF"
@@ -94,6 +94,11 @@ PACKAGECONFIG[kleidiai] = "-Donnxruntime_USE_KLEIDIAI=ON, -Donnxruntime_USE_KLEI
 PACKAGECONFIG[neutron] = "-Donnxruntime_USE_NEUTRON=ON, -Donnxruntime_USE_NEUTRON=OFF, neutron nlohmann-json"
 PACKAGECONFIG[vsinpu] = "-Donnxruntime_USE_VSINPU=ON, -Donnxruntime_USE_VSINPU=OFF, tim-vx"
 
+PACKAGES += "${PN}-python ${PN}-perf"
+FILES:${PN}-python += "${PYTHON_SITEPACKAGES_DIR}/*"
+FILES:${PN}-perf += "${bindir}/onnxruntime_perf_test"
+RDEPENDS:${PN}-python += "${PYTHON_RDEPENDS}"
+
 do_configure[network] = "1"
 do_configure:prepend() {
     export HTTP_PROXY=${http_proxy}
@@ -102,6 +107,61 @@ do_configure:prepend() {
     export https_proxy=${https_proxy}
 }
 
+do_install:append() {
+    install -d ${D}${bindir}
+    install -d ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime
+    install -d ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi
+
+    if [ -f ${B}/onnxruntime_perf_test ]; then
+        install -m 0755 ${B}/onnxruntime_perf_test ${D}${bindir}/
+    elif [ -f ${B}/Release/onnxruntime_perf_test ]; then
+        install -m 0755 ${B}/Release/onnxruntime_perf_test ${D}${bindir}/
+    fi
+
+    #
+    # Top-level package file
+    #
+    install -m 0644 ${B}/onnxruntime/__init__.py \
+        ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/
+
+    #
+    # capi package files
+    #
+
+    install -m 0644 ${B}/onnxruntime/capi/__init__.py \
+        ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+    install -m 0644 ${B}/onnxruntime/capi/_pybind_state.py \
+        ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+    install -m 0644 ${B}/onnxruntime/capi/onnxruntime_inference_collection.py \
+        ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+    install -m 0644 ${B}/onnxruntime/capi/onnxruntime_validation.py \
+        ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+
+    if [ -f ${B}/onnxruntime/capi/onnxruntime_collect_build_info.py ]; then
+        install -m 0644 ${B}/onnxruntime/capi/onnxruntime_collect_build_info.py \
+            ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+    fi
+
+    if [ -f ${B}/onnxruntime/capi/_ld_preload.py ]; then
+        install -m 0644 ${B}/onnxruntime/capi/_ld_preload.py \
+            ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+    fi
+
+    install -m 0755 ${B}/onnxruntime/capi/onnxruntime_pybind11_state.so \
+        ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+
+    # package/version metadata used by onnxruntime_validation.py
+    if [ -f ${B}/onnxruntime/capi/build_and_package_info.py ]; then
+        install -m 0644 ${B}/onnxruntime/capi/build_and_package_info.py \
+            ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/
+    else
+        cat > ${D}${PYTHON_SITEPACKAGES_DIR}/onnxruntime/capi/build_and_package_info.py <<EOF
+package_name = "onnxruntime"
+__version__ = "1.23.2"
+EOF
+    fi
+
+}
 
 # QA Issue: -dev package onnxruntime-dev contains non-symlink .so '/usr/lib/libonnxruntime_providers_shared.so' [dev-elf]
 # This lib is being packaged into -dev. This is intended
