@@ -129,6 +129,13 @@ if $modify_config; then
     echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-rz-features/meta-rz-codecs \"" >> $BUILD_DIR/conf/bblayers.conf
     echo "BBLAYERS += \"\${TOPDIR}/../sources/meta-rz-features/meta-rz-graphics \"" >> $BUILD_DIR/conf/bblayers.conf
 
+    # Add MemryX (either add meta-ea-dx or these two for MemryX - can't use both at the same time)
+    echo "" >> $BUILD_DIR/conf/bblayers.conf
+    echo "# Pick either meta-ea-dx or the memx repos. Cannot have both at the same time." >> $BUILD_DIR/conf/bblayers.conf
+    echo "#BBLAYERS += \"\${TOPDIR}/../sources/meta-ea-memx \"" >> $BUILD_DIR/conf/bblayers.conf
+    echo "#BBLAYERS += \"\${TOPDIR}/../sources/memx-yocto-renesas/meta-memx-runtime \"" >> $BUILD_DIR/conf/bblayers.conf
+    echo "#BBLAYERS += \"\${TOPDIR}/../sources/memx-yocto-renesas/meta-mx3-driver \"" >> $BUILD_DIR/conf/bblayers.conf
+
     echo 'generated' >> conf/$CONF_MODIFIED
 fi
 
