@@ -1,0 +1,28 @@
+From c444302dda2713a7e056016f80650a8db0818a82 Mon Sep 17 00:00:00 2001
+From: Sang Ngo <sang.ngo.yf@renesas.com>
+Date: Mon, 25 Aug 2025 14:33:10 +0700
+Subject: [PATCH] GPU driver: remove power-domains of GPU note for g3l
+
+Due to avoid duplicated clock control between the CPG genpd and
+the mali-kbase driver, let mali-kbase handle the GPU clocks itself
+
+Signed-off-by: Sang Ngo <sang.ngo.yf@renesas.com>
+---
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+index 997b13c902f0..91053b53ab39 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+@@ -783,7 +783,6 @@ gpu: gpu@108B0000 {
+ 				 <&cpg CPG_MOD R9A08G046_GE3D_AXI_CLK>,
+ 				 <&cpg CPG_MOD R9A08G046_GE3D_ACE_CLK>;
+ 			clock-names = "gpu", "bus", "bus_ace";
+-			power-domains = <&cpg>;
+ 			resets = <&cpg R9A08G046_GE3D_RESETN>,
+ 				 <&cpg R9A08G046_GE3D_AXI_RESETN>,
+ 				 <&cpg R9A08G046_GE3D_ACE_RESETN>;
+-- 
+2.25.1
+

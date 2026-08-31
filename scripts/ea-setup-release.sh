@@ -89,7 +89,7 @@ fi
 
 # templates for local.conf and bblayers.conf
 if [ -z "$TEMPLATECONF" ]; then
-    TEMPLATECONF=$PWD/sources/meta-renesas/meta-rz-distro/conf/templates/rz-conf/
+    TEMPLATECONF=$PWD/sources/meta-renesas/meta-rz-distro/conf/templates/vlp-v5-conf/
 fi
 
 # OpenEmbedded setup script

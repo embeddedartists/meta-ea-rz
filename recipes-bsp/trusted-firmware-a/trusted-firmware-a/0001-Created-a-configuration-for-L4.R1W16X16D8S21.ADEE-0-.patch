@@ -1,0 +1,84 @@
+From f7a3e2e136c41bc34e861a736204b97fa0685822 Mon Sep 17 00:00:00 2001
+From: Anders Lindvall <anders.lindvall@embeddedartists.com>
+Date: Fri, 17 Jul 2026 12:06:46 +0000
+Subject: [PATCH] Created a configuration for L4.R1W16X16D8S21.ADEE-0 using
+ gen_tool for our rzg3l
+
+---
+ .../rz/board/g3l_smarc/ddr_param_def_lpddr4.c | 36 +++++++++----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/plat/renesas/rz/board/g3l_smarc/ddr_param_def_lpddr4.c b/plat/renesas/rz/board/g3l_smarc/ddr_param_def_lpddr4.c
+index 9041865c1..6797b28ee 100644
+--- a/plat/renesas/rz/board/g3l_smarc/ddr_param_def_lpddr4.c
++++ b/plat/renesas/rz/board/g3l_smarc/ddr_param_def_lpddr4.c
+@@ -4,7 +4,7 @@
+  * SPDX-License-Identifier: BSD-3-Clause
+  */
+ 
+-// RZ/G3L, v2.0.4, L4.R1W16X16D16S21.ADEE-0
++// RZ/G3L, v2.0.5, L4.R1W16X16D8S21.ADEE-0
+ 
+ #include <stdint.h>
+ #include <lib/utils_def.h>
+@@ -119,21 +119,21 @@ const uint32_t param_setup_mc[][2] = {
+ 	{0x0068, 0x00000000},
+ 	{0x0069, 0x00000000},
+ 	{0x006a, 0x00040301},
+-	{0x006b, 0x00000195},
++	{0x006b, 0x0000012a},
+ 	{0x006c, 0x00001034},
+-	{0x006d, 0x00000098},
++	{0x006d, 0x00000070},
+ 	{0x006e, 0x00000613},
+-	{0x006f, 0x00000195},
++	{0x006f, 0x0000012a},
+ 	{0x0070, 0x00001034},
+ 	{0x0071, 0x00000005},
+-	{0x0072, 0x000b00cb},
+-	{0x0073, 0x004c0060},
++	{0x0072, 0x000b0095},
++	{0x0073, 0x00380060},
+ 	{0x0074, 0x00002404},
+-	{0x0075, 0x000b00cb},
+-	{0x0076, 0x00cb0060},
++	{0x0075, 0x000b0095},
++	{0x0076, 0x00950060},
+ 	{0x0077, 0x0000600b},
+-	{0x0078, 0x0004004c},
+-	{0x0079, 0x00cb0024},
++	{0x0078, 0x00040038},
++	{0x0079, 0x00950024},
+ 	{0x007a, 0x0000600b},
+ 	{0x007b, 0x11010000},
+ 	{0x007c, 0x00050008},
+@@ -143,11 +143,11 @@ const uint32_t param_setup_mc[][2] = {
+ 	{0x0080, 0x0f080603},
+ 	{0x0081, 0x01010203},
+ 	{0x0082, 0x00010201},
+-	{0x0083, 0x019d019d},
+-	{0x0084, 0x009b009b},
+-	{0x0085, 0x019d019d},
+-	{0x0086, 0x009b019d},
+-	{0x0087, 0x0310019d},
++	{0x0083, 0x01320132},
++	{0x0084, 0x00730073},
++	{0x0085, 0x01320132},
++	{0x0086, 0x00730132},
++	{0x0087, 0x03100132},
+ 	{0x0088, 0x00080602},
+ 	{0x0089, 0x06080006},
+ 	{0x008a, 0x05050103},
+@@ -414,9 +414,9 @@ const uint32_t param_setup_mc[][2] = {
+ 	{0x018f, 0x00360014},
+ 	{0x0190, 0x01010100},
+ 	{0x0191, 0x01010000},
+-	{0x0192, 0x00000000},
+-	{0x0193, 0x3fff0000},
+-	{0x0194, 0x0001ff00},
++	{0x0192, 0x00000101},
++	{0x0193, 0x1fff0000},
++	{0x0194, 0x0000ff00},
+ 	{0x0195, 0xffffffff},
+ 	{0x0196, 0x00ffff00},
+ 	{0x0197, 0xff0b0000},
